@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flag Search</title>
+<title>Flag Guessing Game</title>
 <style>
   /* Basic styling */
   body {
     font-family: Arial, sans-serif;
   }
-  #searchInput {
+  #guessInput {
     margin-bottom: 10px;
   }
   #flagDisplay {
@@ -21,39 +21,58 @@
 </head>
 <body>
 
-<!-- Search input -->
-<input type="text" id="searchInput" placeholder="Enter country name">
+<!-- Guess input -->
+<input type="text" id="guessInput" placeholder="Enter country name">
 
 <!-- Flag display -->
 <img id="flagDisplay" src="" alt="Flag">
 
 <script>
-// Function to fetch flag image based on country name
-function searchFlag() {
-  var country = document.getElementById("searchInput").value.trim().toLowerCase();
+var countriesData;
+
+// Fetch data about countries from the REST Countries API
+fetch("https://restcountries.com/v3.1/all")
+  .then(response => response.json())
+  .then(data => {
+    countriesData = data;
+  });
+
+// Function to start the game
+function startGame() {
+  // Pick a random country
+  var randomIndex = Math.floor(Math.random() * countriesData.length);
+  var randomCountry = countriesData[randomIndex];
+  
+  // Display the flag of the random country
   var flagImage = document.getElementById("flagDisplay");
+  flagImage.src = randomCountry.flags.png;
+  flagImage.style.display = "block";
+  
+  // Clear the guess input field
+  document.getElementById("guessInput").value = "";
+}
 
-  // Fetch flag image from an API (replace <API_URL> with the actual API endpoint)
-  fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
-    .then(data => {
-      // Extract flag URL from the API response
-      var flagUrl = data[0].flags.png;
+// Function to check the user's guess
+function checkGuess() {
+  var guess = document.getElementById("guessInput").value.trim().toLowerCase();
+  var flagImage = document.getElementById("flagDisplay");
+  
+  // Get the name of the country from the flag URL
+  var flagUrl = flagImage.src;
+  var countryName = flagUrl.substring(flagUrl.lastIndexOf("/") + 1, flagUrl.lastIndexOf("."));
 
-      // Display the flag image
-      flagImage.src = flagUrl;
-      flagImage.style.display = "block";
-    })
-    .catch(error => {
-      console.error("Error fetching flag:", error);
-      // Hide the flag display if an error occurs
-      flagImage.style.display = "none";
-    });
+  // Check if the guess matches the country name
+  if (guess === countryName) {
+    alert("Correct! You guessed the country correctly.");
+  } else {
+    alert("Incorrect! Try again.");
+  }
 }
 </script>
 
-<!-- Button to trigger the search -->
-<button onclick="searchFlag()">Search</button>
+<!-- Buttons to start the game and check the guess -->
+<button onclick="startGame()">Start Game</button>
+<button onclick="checkGuess()">Check Guess</button>
 
 </body>
 </html>
