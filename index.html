@@ -9,8 +9,11 @@
   body {
     font-family: Arial, sans-serif;
   }
-  #guessInput {
+  #options {
     margin-bottom: 10px;
+  }
+  .option {
+    margin-right: 10px;
   }
   #flagDisplay {
     max-width: 100%;
@@ -21,14 +24,15 @@
 </head>
 <body>
 
-<!-- Guess input -->
-<input type="text" id="guessInput" placeholder="Enter country name">
+<!-- Options for the user to choose from -->
+<div id="options"></div>
 
 <!-- Flag display -->
 <img id="flagDisplay" src="" alt="Flag">
 
 <script>
 var countriesData;
+var correctCountry;
 
 // Fetch data about countries from the REST Countries API
 fetch("https://restcountries.com/v3.1/all")
@@ -41,28 +45,50 @@ fetch("https://restcountries.com/v3.1/all")
 function startGame() {
   // Pick a random country
   var randomIndex = Math.floor(Math.random() * countriesData.length);
-  var randomCountry = countriesData[randomIndex];
+  correctCountry = countriesData[randomIndex];
   
   // Display the flag of the random country
   var flagImage = document.getElementById("flagDisplay");
-  flagImage.src = randomCountry.flags.png;
+  flagImage.src = correctCountry.flags.png;
   flagImage.style.display = "block";
   
-  // Clear the guess input field
-  document.getElementById("guessInput").value = "";
+  // Generate multiple-choice options
+  var optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
+  var options = [];
+  options.push(correctCountry.name.common); // Add the correct country to options
+  
+  // Add three incorrect countries to options
+  while (options.length < 4) {
+    var randomIndex = Math.floor(Math.random() * countriesData.length);
+    var randomCountry = countriesData[randomIndex].name.common;
+    if (!options.includes(randomCountry)) {
+      options.push(randomCountry);
+    }
+  }
+  
+  // Shuffle options
+  options.sort(() => Math.random() - 0.5);
+  
+  // Display options
+  options.forEach(option => {
+    var button = document.createElement("button");
+    button.textContent = option;
+    button.className = "option";
+    button.onclick = function() { checkGuess(option); };
+    optionsDiv.appendChild(button);
+  });
 }
 
 // Function to check the user's guess
-function checkGuess() {
-  var guess = document.getElementById("guessInput").value.trim().toLowerCase();
+function checkGuess(guess) {
   var flagImage = document.getElementById("flagDisplay");
   
-  // Get the name of the country from the flag URL
-  var flagUrl = flagImage.src;
-  var countryName = flagUrl.substring(flagUrl.lastIndexOf("/") + 1, flagUrl.lastIndexOf("."));
-
-  // Check if the guess matches the country name
-  if (guess === countryName) {
+  // Get the name of the correct country
+  var correctCountryName = correctCountry.name.common;
+  
+  // Check if the guess matches the correct country name
+  if (guess === correctCountryName) {
     alert("Correct! You guessed the country correctly.");
   } else {
     alert("Incorrect! Try again.");
@@ -70,9 +96,8 @@ function checkGuess() {
 }
 </script>
 
-<!-- Buttons to start the game and check the guess -->
+<!-- Button to start the game -->
 <button onclick="startGame()">Start Game</button>
-<button onclick="checkGuess()">Check Guess</button>
 
 </body>
 </html>
