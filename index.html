@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flag Search</title>
+<style>
+  /* Basic styling */
+  body {
+    font-family: Arial, sans-serif;
+  }
+  #searchInput {
+    margin-bottom: 10px;
+  }
+  #flagDisplay {
+    max-width: 100%;
+    height: auto;
+    display: none; /* Hide the flag initially */
+  }
+</style>
+</head>
+<body>
+
+<!-- Search input -->
+<input type="text" id="searchInput" placeholder="Enter country name">
+
+<!-- Flag display -->
+<img id="flagDisplay" src="" alt="Flag">
+
+<script>
+// Function to fetch flag image based on country name
+function searchFlag() {
+  var country = document.getElementById("searchInput").value.trim().toLowerCase();
+  var flagImage = document.getElementById("flagDisplay");
+
+  // Fetch flag image from an API (replace <API_URL> with the actual API endpoint)
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(response => response.json())
+    .then(data => {
+      // Extract flag URL from the API response
+      var flagUrl = data[0].flags.png;
+
+      // Display the flag image
+      flagImage.src = flagUrl;
+      flagImage.style.display = "block";
+    })
+    .catch(error => {
+      console.error("Error fetching flag:", error);
+      // Hide the flag display if an error occurs
+      flagImage.style.display = "none";
+    });
+}
+</script>
+
+<!-- Button to trigger the search -->
+<button onclick="searchFlag()">Search</button>
+
+</body>
+</html>
