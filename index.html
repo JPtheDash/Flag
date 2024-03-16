@@ -7,52 +7,40 @@
 <style>
   body {
     background-color: yellow;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  th, td {
-    border: 1px solid #dddddd;
     text-align: center;
-    padding: 10px;
   }
-  th {
-    background-color: #f2f2f2;
+  .pie {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #ccc;
   }
-  .highlight {
-    background-color: #ffcc00;
+  .slice {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    clip: rect(0px, 100px, 200px, 0px);
+    border-radius: 50%;
+  }
+  .elapsed {
+    clip: rect(0px, 100px, 200px, 0px);
+    background-color: red;
+  }
+  .remaining {
+    clip: rect(auto, auto, auto, auto);
+    background-color: green;
   }
 </style>
 </head>
 <body>
 <h1>May Day Countdown</h1>
-<h2>May 2024</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Sun</th>
-      <th>Mon</th>
-      <th>Tue</th>
-      <th>Wed</th>
-      <th>Thu</th>
-      <th>Fri</th>
-      <th>Sat</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="highlight">1</td> <!-- Highlighting May Day -->
-    </tr>
-    <!-- Add other rows as needed -->
-  </tbody>
-</table>
+
+<div class="pie">
+  <div class="slice elapsed"></div>
+  <div class="slice remaining"></div>
+</div>
 
 <p id="countdown"></p>
 
@@ -63,6 +51,12 @@ var countDownDate = new Date("May 25, 2024 00:00:00").getTime();
 var x = setInterval(function() {
   var now = new Date().getTime();
   var distance = countDownDate - now;
+  var totalTime = 1000 * 60 * 60 * 24; // Total time in milliseconds (1 day)
+  var elapsedPercentage = ((totalTime - distance) / totalTime) * 100;
+  var remainingPercentage = 100 - elapsedPercentage;
+
+  document.querySelector('.elapsed').style.transform = "rotate(" + (360 * (elapsedPercentage / 100)) + "deg)";
+  document.querySelector('.remaining').style.transform = "rotate(" + (360 * (remainingPercentage / 100)) + "deg)";
 
   var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
