@@ -3,101 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flag Guessing Game</title>
+<title>May Day Countdown</title>
 <style>
-  /* Basic styling */
   body {
-    font-family: Arial, sans-serif;
+    background-color: yellow;
   }
-  #options {
-    margin-bottom: 10px;
+  table {
+    border-collapse: collapse;
+    width: 100%;
   }
-  .option {
-    margin-right: 10px;
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
   }
-  #flagDisplay {
-    max-width: 100%;
-    height: auto;
-    display: none; /* Hide the flag initially */
+  th {
+    background-color: #f2f2f2;
+  }
+  .highlight {
+    background-color: #ffcc00;
   }
 </style>
 </head>
 <body>
+<h1>May Day Countdown</h1>
+<h2>May 2024</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Sun</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="highlight">1</td> <!-- Highlighting May Day -->
+    </tr>
+    <!-- Add other rows as needed -->
+  </tbody>
+</table>
 
-<!-- Options for the user to choose from -->
-<div id="options"></div>
-
-<!-- Flag display -->
-<img id="flagDisplay" src="" alt="Flag">
+<p id="countdown"></p>
 
 <script>
-var countriesData;
-var correctCountry;
+// Countdown timer
+var countDownDate = new Date("May 25, 2024 00:00:00").getTime();
 
-// Fetch data about countries from the REST Countries API
-fetch("https://restcountries.com/v3.1/all")
-  .then(response => response.json())
-  .then(data => {
-    countriesData = data;
-  });
+var x = setInterval(function() {
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
 
-// Function to start the game
-function startGame() {
-  // Pick a random country
-  var randomIndex = Math.floor(Math.random() * countriesData.length);
-  correctCountry = countriesData[randomIndex];
-  
-  // Display the flag of the random country
-  var flagImage = document.getElementById("flagDisplay");
-  flagImage.src = correctCountry.flags.png;
-  flagImage.style.display = "block";
-  
-  // Generate multiple-choice options
-  var optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML = "";
-  var options = [];
-  options.push(correctCountry.name.common); // Add the correct country to options
-  
-  // Add three incorrect countries to options
-  while (options.length < 4) {
-    var randomIndex = Math.floor(Math.random() * countriesData.length);
-    var randomCountry = countriesData[randomIndex].name.common;
-    if (!options.includes(randomCountry)) {
-      options.push(randomCountry);
-    }
-  }
-  
-  // Shuffle options
-  options.sort(() => Math.random() - 0.5);
-  
-  // Display options
-  options.forEach(option => {
-    var button = document.createElement("button");
-    button.textContent = option;
-    button.className = "option";
-    button.onclick = function() { checkGuess(option); };
-    optionsDiv.appendChild(button);
-  });
-}
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
 
-// Function to check the user's guess
-function checkGuess(guess) {
-  var flagImage = document.getElementById("flagDisplay");
-  
-  // Get the name of the correct country
-  var correctCountryName = correctCountry.name.common;
-  
-  // Check if the guess matches the correct country name
-  if (guess === correctCountryName) {
-    alert("Correct! You guessed the country correctly.");
-  } else {
-    alert("Incorrect! Try again.");
-  }
-}
+  document.getElementById("countdown").innerHTML = "Time up to May Day: " + days + "d ";
+}, 1000);
 </script>
-
-<!-- Button to start the game -->
-<button onclick="startGame()">Start Game</button>
-
 </body>
 </html>
