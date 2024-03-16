@@ -31,35 +31,22 @@
     background-color: #ccc;
     margin-bottom: 20px;
   }
-  .slice {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    clip: rect(0px, 100px, 200px, 0px);
-    border-radius: 50%;
-    transform-origin: center center;
-  }
-  .remaining {
-    background-color: green;
-    clip: rect(auto, auto, auto, auto);
-  }
-  .worm {
+  .timer {
     position: absolute;
     top: 50%;
-    left: -100px;
-    width: 100px;
-    height: 20px;
-    background-color: #ff0000;
-    animation: moveWorm 5s linear infinite, waveWorm 1s ease-in-out infinite;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
   }
-  @keyframes moveWorm {
-    0% { left: -100px; }
-    100% { left: calc(100% + 100px); }
-  }
-  @keyframes waveWorm {
-    0% { transform: translateY(-5px); }
-    50% { transform: translateY(5px); }
-    100% { transform: translateY(-5px); }
+  .hourglass {
+    width: 50px;
+    height: 50px;
+    background-image: url('https://media.giphy.com/media/BzyTuYCmvSORqs1ABM/giphy.gif');
+    background-size: cover;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 </style>
 </head>
@@ -68,18 +55,33 @@
   <div class="box">
     <h1>May Day Countdown</h1>
     <div class="pie">
-      <!-- Each segment of the pie chart represents one day -->
-      <?php
-        $remainingDays = 10; // For demonstration, replace with actual remaining days
-        $angleIncrement = 360 / $remainingDays;
-        for ($i = 0; $i < $remainingDays; $i++) {
-          echo '<div class="slice remaining" style="transform: rotate(' . ($angleIncrement * $i) . 'deg);"></div>';
-        }
-      ?>
+      <!-- Timer will be placed here -->
+      <div class="timer" id="countdown"></div>
     </div>
-    <p id="countdown">Days left until May Day: <?php echo $remainingDays; ?></p>
-    <div class="worm"></div>
+    <div class="hourglass"></div>
   </div>
 </div>
+
+<script>
+// Countdown timer
+var countDownDate = new Date("May 25, 2024 00:00:00").getTime();
+
+var x = setInterval(function() {
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
 </body>
 </html>
