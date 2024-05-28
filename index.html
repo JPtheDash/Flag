@@ -1,101 +1,146 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Life's Cartwheel</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>MOMOS BABA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        header, nav, section, footer {
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #000;
+        }
+        header {
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #000;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Life's Cartwheel</h1>
-        <div class="cartwheel">
-            <div class="section" id="section1">
-                <label for="decision1">Decision 1:</label>
-                <input type="text" id="decision1" name="decision1" placeholder="Enter your decision">
-            </div>
-            <!-- Repeat the above section for additional decisions -->
+    <header>
+        <h1>MOMOS BABA</h1>
+        <button class="button" onclick="switchToOdia()">ମୋମୋଶ୍ ବାବା</button>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#we-offer">We Offer</a></li>
+            <li><a href="#be-a-partner">Be a Partner</a></li>
+            <li><a href="#our-solutions">Our Solutions</a></li>
+            <li><a href="#our-suggestion">Our Suggestion</a></li>
+            <li><a href="#our-initiatives">Our Initiatives</a></li>
+        </ul>
+    </nav>
+    <section id="about">
+        <h2>About Us</h2>
+        <p>We are a brand which is a need of the hour. In the era of artificial colors and preservatives, we offer you a local solution with our expertise in momo what-how. We look forward to getting a place in your city, street, and on your plates. We have taken the route of your stomach to your heart.</p>
+        <p>A total of 108 momo varieties, with momo Mela offers that you can't say No to! Don't worry, we are budget friendly. And do you know we use GI tagged products to help local farmers of your area to make you contribute to your ecosystems.</p>
+        <p>To know more about us call at #123456&6. You can follow us on:</p>
+        <ul>
+            <li>Facebook</li>
+            <li>Instagram</li>
+            <li>Google</li>
+        </ul>
+        <p>Hey, do you know "Anna daan" is helping 100 kids a month to help fight chronic Anemia? We are a partner with them! Oh yes, you can be a partner too, and help kids in your locality get a protein-rich local pulse-based meal, twice a day. Visit Anna daan at <a href="http://wwe.annadan.coxm">wwe.annadan.coxm</a>.</p>
+    </section>
+    <section id="we-offer">
+        <h2>We Offer</h2>
+        <h3>Steam Momo</h3>
+        <ul>
+            <li>Veg</li>
+            <li>Chicken</li>
+            <li>Specials: Ragi, Chocolate, Dry Fruit, Beetroot</li>
+        </ul>
+    </section>
+    <section id="be-a-partner">
+        <h2>Be a Partner</h2>
+        <div>A total of 56 partners and growing.</div>
+        <h3>Why Partner with Us?</h3>
+        <button class="button" onclick="showReason1()">Cause we are the fastest growing momo chain? Duh!</button>
+        <button class="button" onclick="showReason2()">Show highest number of momo variety, healthy options...</button>
+        <button class="button" onclick="showReason3()">You have 25k? Have 5 friends with 5k?... </button>
+        <button class="button" onclick="showReason4()">Partner with us for the options available starting from 25000 only...</button>
+    </section>
+    <section id="our-solutions">
+        <h2>Our Solutions</h2>
+        <h3>Momos Baba Mini</h3>
+        <p>Suitable for small kirana shop, shop in front of your house, shops with a freezer.</p>
+        <h3>Momos Baba Motion</h3>
+        <p>An e-vehicle to get your business in motion.</p>
+        <h3>Momos Baba Mahan</h3>
+        <p>An outlet in your locality with proper construction and fire hazard safety standards.</p>
+    </section>
+    <section id="our-suggestion">
+        <h2>Our Suggestion</h2>
+        <h3>PANDAVAS</h3>
+        <p>Like the panchu Pandavas, let's win the Mahabharata of financial independence. Make a group of 5 people, register with us and we will reach out to you for credit and loan support to start your business.</p>
+        <h3>Sanghamitra</h3>
+        <p>Get your local SHG group, Sangha, to register with us and start the standard quality affordable momo with all support from our team.</p>
+        <h3>Kuber</h3>
+        <p>Add an oven to your already existing shop and display our ready-to-cook frozen momos and take your share of Dare.</p>
+    </section>
+    <section id="our-initiatives">
+        <h2>Our Initiatives</h2>
+        <h3>Anna Daan</h3>
+        <p>Helping 100 kids a month to help fight chronic anemia.</p>
+        <h3>Momo Mela</h3>
+        <p>A celebration of momo varieties and special offers.</p>
+        <h3>MomoKumar, Momo Kumari</h3>
+        <p>A competition in schools for three things:</p>
+        <ul>
+            <li>Drawing with a message "I cleaned my verandah and did a jhoti rangoli".</li>
+            <li>My photo with my plant that I have planted.</li>
+            <li>My notes are clean, checkout my handwriting.</li>
+        </ul>
+    </section>
+    <footer>
+        <p>&copy; 2024 MOMOS BABA. All rights reserved.</p>
+    </footer>
 
-            <button id="spinButton">Spin the Cartwheel</button>
-
-            <div id="result" class="hidden">
-                <h2>Outcome:</h2>
-                <p id="outcomeText"></p>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script>
+        function switchToOdia() {
+            alert("Switching to Odia website...");
+            // Implement the actual language switch functionality here.
+        }
+        function showReason1() {
+            alert("Cause we are the fastest growing momo chain? Duh!");
+        }
+        function showReason2() {
+            alert("We have the highest number of momo variety, healthy options, we are long term players, serving our customers with health hazard preservatives and colors will make us stand with the same side that we came to oppose.");
+        }
+        function showReason3() {
+            alert("You have 25k? Have 5 friends with 5k? Are you an SHG looking forward to start a local store in your city, village, street? Are you a kirana shop owner looking to add a Naya maal in your store?");
+        }
+        function showReason4() {
+            alert("Partner with us for the options available starting from 25000 only. We have Momos Baba Mini, Momos Baba Motion, and Momos Baba Mahan.");
+        }
+    </script>
 </body>
 </html>
 ```
-
-And here's an example of CSS to make it look more modern:
-
-```css
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    text-align: center;
-    color: #333;
-}
-
-.cartwheel {
-    text-align: center;
-}
-
-.section {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #666;
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-#result {
-    margin-top: 20px;
-}
-
-.hidden {
-    display: none;
-}
-```
-
-This CSS will give the website a more modern look and feel. Let me know if you need further adjustments or additional styling!
